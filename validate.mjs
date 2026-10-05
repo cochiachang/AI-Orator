@@ -1,6 +1,6 @@
 import fs from 'fs'; import vm from 'vm';
 const ctx = { window: {} }; ctx.window = ctx; vm.createContext(ctx);
-for (const f of ['_h',...Array.from({length:12},(_,i)=>'s'+String(i+1).padStart(2,'0'))]) vm.runInContext(fs.readFileSync('data/'+f+'.js','utf8'), ctx, {filename:f});
+for (const f of ['helpers',...Array.from({length:12},(_,i)=>'s'+String(i+1).padStart(2,'0'))]) vm.runInContext(fs.readFileSync('data/'+f+'.js','utf8'), ctx, {filename:f});
 let errs=0, nq=0, nc=0; const err=m=>{console.log('ERR',m);errs++};
 for (const s of ctx.SESSIONS){
   for (const c of s.concepts){ nc++; if(!c.points.length) err(s.id+c.id+' no points');
